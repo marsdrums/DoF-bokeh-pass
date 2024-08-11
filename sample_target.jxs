@@ -1,0 +1,64 @@
+<jittershader name="default">
+	<description>Default Slab </description>
+	<param name="currDepthTex" type="int" default="0" />
+	<param name="prevDepthTex" type="int" default="1" />
+	<param name="modelViewProjectionMatrix" type="mat4" state="MODELVIEW_PROJECTION_MATRIX" />
+	<param name="textureMatrix0" type="mat4" state="TEXTURE0_MATRIX" />
+	<param name="position" type="vec3" state="POSITION" />
+	<param name="autofocus_coordinates" type="vec2" default="0.5 0.5" />
+	<param name="autofocus_speed" type="float" default="0.1" />
+	<param name="texDim" type="vec2" state="TEXDIM0" />
+	<language name="glsl" version="1.5">
+		<bind param="currDepthTex" program="fp" />
+		<bind param="prevDepthTex" program="fp" />
+		<bind param="modelViewProjectionMatrix" program="vp" />
+		<bind param="textureMatrix0" program="vp" />
+		<bind param="position" program="vp" />
+		<bind param="autofocus_coordinates" program="vp" />
+		<bind param="autofocus_speed" program="fp" />
+		<bind param="texDim" program="vp" />
+		<program name="vp" type="vertex"  >
+<![CDATA[
+#version 330 core
+
+in vec3 position;
+out jit_PerVertex {
+	flat vec2 uv;
+} jit_out;
+uniform mat4 modelViewProjectionMatrix;
+uniform mat4 textureMatrix0;
+uniform vec2 autofocus_coordinates, texDim;
+
+void main(void) {
+	gl_Position = modelViewProjectionMatrix*vec4(position, 1.);
+	jit_out.uv = texDim * autofocus_coordinates;
+}
+]]>
+</program>
+
+<program name="fp" type="fragment"  >
+<![CDATA[
+#version 330 core
+
+in jit_PerVertex {
+	flat vec2 uv;
+} jit_in;
+layout (location = 0) out vec4 outColor;
+
+uniform samplerJit0 currDepthTex, prevDepthTex;
+uniform float autofocus_speed;
+
+void main(void) {
+
+	float currDepth = texture(currDepthTex, jit_in.uv).w;
+	currDepth = currDepth == 0 ? 1.0 : currDepth;
+	float prevDepth = texelFetch(prevDepthTex, ivec2(0.0)).r;
+
+	float i = currDepth == 1 ? 0.0 : autofocus_speed;
+	
+	outColor = vec4(mix(prevDepth, currDepth, i));
+}
+]]>
+</program>
+</language>
+</jittershader>

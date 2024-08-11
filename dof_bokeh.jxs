@@ -1,0 +1,259 @@
+<jittershader name="default">
+
+	<description>Default Slab </description>
+	<param name="renderTex" type="int" default="0" />
+	<param name="depthTex" type="int" default="1" />
+	<param name="sampledDepthTex" type="int" default="2" />
+
+	<param name="modelViewProjectionMatrix" type="mat4" state="MODELVIEW_PROJECTION_MATRIX" />
+	<param name="textureMatrix0" type="mat4" state="TEXTURE0_MATRIX" />
+	<param name="position" type="vec3" state="POSITION" />
+	<param name="texcoord" type="vec2" state="TEXCOORD" />
+	<param name="nearClip" type="float" state="NEAR_CLIP" />
+	<param name="farClip" type="float" state="FAR_CLIP" />
+	<param name="texDim" type="vec2" state="TEXDIM0" />
+
+	<param name="lens_focal_distance" type="float" default="4.0" />
+	<param name="lens_focal_length" type="float" default="0.8" />
+	<param name="lens_fstop" type="float" default="2.0" />
+	<param name="num_samples" type="int" default="4" />			//samples on the first ring
+	<param name="num_rings" type="int" default="4" />			//ring count
+	<param name="lens_coc" type="float" default="0.03" />		//circle of confusion size in mm (35mm film = 0.03mm)
+	<param name="lens_max_blur" type="float" default="2." />			//clamp value of max blur (0.0 = no blur,1.0 default)
+
+	<param name="bokeh_threshold" type="float" default="0.7" />	//highlight bokeh_threshold;
+	<param name="bokeh_gain" type="float" default="10.0" />		//highlight bokeh_gain;
+	<param name="bokeh_pentagon_enable" type="int" default="0" />		//enable pentagon shaped bokeh
+	<param name="bokeh_bias" type="float" default="0.5" />			//bokeh edge bokeh_bias
+	<param name="bokeh_fringe" type="float" default="0.7" />			//bokeh chromatic aberration/fringing
+	<param name="namount" type="float" default="0.0001" />		//dither amount
+	<param name="bokeh_feather" type="float" default="1.4" />			//pentagon shape bokeh_feather
+
+	<param name="show_in_focus" type="int" default="0" />
+	<param name="autofocus_enable" type="int" default="0" />
+	<param name="autofocus_coordinates" type="vec2" default="0.5 0.5" />
+
+	<language name="glsl" version="1.5">
+
+		<bind param="renderTex" program="fp" />
+		<bind param="depthTex" program="fp" />
+		<bind param="sampledDepthTex" program="fp" />
+
+		<bind param="modelViewProjectionMatrix" program="vp" />
+		<bind param="textureMatrix0" program="vp" />
+		<bind param="position" program="vp" />
+		<bind param="texcoord" program="vp" />
+		<bind param="nearClip" program="fp" />
+		<bind param="farClip" program="fp" />
+		<bind param="texDim" program="fp" />
+
+		<bind param="lens_focal_distance" program="fp" />
+		<bind param="lens_focal_length" program="fp" />
+		<bind param="lens_fstop" program="fp" />
+		<bind param="num_samples" program="fp" />
+		<bind param="num_rings" program="fp" />
+		<bind param="lens_coc" program="fp" />
+		<bind param="lens_max_blur" program="fp" />
+
+		<bind param="bokeh_threshold" program="fp" />
+		<bind param="bokeh_gain" program="fp" />
+		<bind param="bokeh_pentagon_enable" program="fp" />
+		<bind param="bokeh_bias" program="fp" />
+		<bind param="bokeh_fringe" program="fp" />
+		<bind param="namount" program="fp" />
+		<bind param="bokeh_feather" program="fp" />
+
+		<bind param="show_in_focus" program="fp" />
+		<bind param="autofocus_enable" program="fp" />
+		<bind param="autofocus_coordinates" program="fp" />
+
+
+		<program name="vp" type="vertex"  >
+<![CDATA[
+#version 330 core
+
+in vec3 position;
+in vec2 texcoord;
+out jit_PerVertex {
+	smooth vec2 texcoord;
+	smooth vec2 rectUV;
+} jit_out;
+
+uniform mat4 modelViewProjectionMatrix;
+uniform mat4 textureMatrix0;
+
+void main(void) {
+
+	gl_Position = modelViewProjectionMatrix*vec4(position, 1.);
+	jit_out.texcoord = texcoord;//vec2(texcoord.x, 1.0 - texcoord.y);
+	jit_out.rectUV = vec2(textureMatrix0*vec4(texcoord, 0., 1.));
+}
+]]>
+</program>
+
+<program name="fp" type="fragment"  >
+<![CDATA[
+#version 330 core
+#define PI 3.14159265
+
+in jit_PerVertex {
+	smooth vec2 texcoord;
+	smooth vec2 rectUV;
+} jit_in;
+
+layout (location = 0) out vec4 outColor;
+
+uniform sampler2DRect renderTex, depthTex, sampledDepthTex;
+uniform float nearClip, farClip, lens_focal_distance, lens_focal_length, lens_fstop;
+uniform int num_samples, num_rings;
+uniform float lens_coc, lens_max_blur, bokeh_threshold, bokeh_gain, bokeh_bias, bokeh_fringe, namount, bokeh_feather;
+uniform vec2 texDim, autofocus_coordinates;
+uniform int bokeh_pentagon_enable, show_in_focus, autofocus_enable;
+
+float linearize(float depth)
+{
+	return -farClip * nearClip / (depth*farClip * (farClip - nearClip) - farClip);
+}
+
+float penta(vec2 coords) //pentagonal shape
+{
+	float scale = float(num_rings) - 1.3;
+	vec4  HS0 = vec4( 1.0,         0.0,         0.0,  1.0);
+	vec4  HS1 = vec4( 0.309016994, 0.951056516, 0.0,  1.0);
+	vec4  HS2 = vec4(-0.809016994, 0.587785252, 0.0,  1.0);
+	vec4  HS3 = vec4(-0.809016994,-0.587785252, 0.0,  1.0);
+	vec4  HS4 = vec4( 0.309016994,-0.951056516, 0.0,  1.0);
+	vec4  HS5 = vec4( 0.0        ,0.0         , 1.0,  1.0);
+	
+	vec4  one = vec4( 1.0 );
+	
+	vec4 P = vec4((coords),vec2(scale, scale)); 
+	
+	vec4 dist = vec4(0.0);
+	float inorout = -4.0;
+	
+	dist.x = dot( P, HS0 );
+	dist.y = dot( P, HS1 );
+	dist.z = dot( P, HS2 );
+	dist.w = dot( P, HS3 );
+	
+	dist = smoothstep( -bokeh_feather, bokeh_feather, dist );
+	
+	inorout += dot( dist, one );
+	
+	dist.x = dot( P, HS4 );
+	dist.y = HS5.w - abs( P.z );
+	
+	dist = smoothstep( -bokeh_feather, bokeh_feather, dist );
+	inorout += dist.x;
+	
+	return clamp( inorout, 0.0, 1.0 );
+}
+
+
+vec2 rand(vec2 coord) //generating noise/pattern texture for dithering
+{
+	float noiseX = clamp(fract(sin(dot(coord ,vec2(12.9898,78.233))) * 43758.5453),0.0,1.0)*2.0-1.0;
+	float noiseY = clamp(fract(sin(dot(coord ,vec2(12.9898,78.233)*2.0)) * 43758.5453),0.0,1.0)*2.0-1.0;
+	return vec2(noiseX,noiseY);
+}
+
+vec3 color(vec2 coords,float blur) //processing the sample
+{
+	vec3 col = vec3(0.0);
+	
+	vec2 texel = vec2(1.0) / texDim;
+	col.r = texture(renderTex, texDim * (coords + vec2(0.0,1.0)*texel*bokeh_fringe*blur) 		).r;
+	col.g = texture(renderTex, texDim * (coords + vec2(-0.866,-0.5)*texel*bokeh_fringe*blur) 	).g;
+	col.b = texture(renderTex, texDim * (coords + vec2(0.866,-0.5)*texel*bokeh_fringe*blur) 	).b;
+	
+	vec3 lumcoeff = vec3(0.299,0.587,0.114);
+	float lum = dot(col.rgb, lumcoeff);
+	float thresh = max((lum-bokeh_threshold)*bokeh_gain, 0.0);
+	return col + mix(vec3(0.0),col,thresh*blur);
+}
+
+vec4 show_focus(float blur){
+
+	float blur2 = blur*blur;
+	float blur4 = blur2*blur2;
+	float focal_plane = blur < 0.005 ? 1.0 : 0.0;
+
+	float target = length( texDim * (jit_in.texcoord - autofocus_coordinates) ) < 10.0 ? 1.0 : 0.0;
+	return vec4(	1 - blur + target,
+					1 - blur2 - focal_plane - target,
+					1 - blur4 - focal_plane,
+					1);
+}
+
+void main(void) {
+	
+	float depth = texelFetch(depthTex, ivec2(jit_in.rectUV)).w;
+	depth = depth == 0 ? 1.0 : depth;
+
+	float fDepth;
+
+	if(autofocus_enable == 0){
+
+		fDepth = lens_focal_distance / farClip;
+
+	} else {
+
+		fDepth = texelFetch(sampledDepthTex, ivec2(0.0)).r;
+
+	}
+	//float fDepth = autofocus_enable == 1 ? calc_autofocus() : lens_focal_distance / farClip;
+
+	float f = lens_focal_length; //focal length in mm
+	float d = fDepth*1000.0; //focal plane in mm
+	float o = depth*1000.0; //depth in mm
+	
+	float a = (o*f)/(o-f); 
+	float b = (d*f)/(d-f); 
+	float c = (d-f)/(d*lens_fstop*lens_coc); 
+	
+	float blur = clamp( abs(a-b)*c, 0.0, 1.0 );
+
+	vec2 noise = rand(jit_in.texcoord)*namount*blur;
+
+	float w = (1.0/texDim.x)*blur*lens_max_blur+noise.x;
+	float h = (1.0/texDim.y)*blur*lens_max_blur+noise.y;
+
+	vec3 col = vec3(0.0);
+	
+	{
+		col = texelFetch(renderTex, ivec2(jit_in.rectUV)).rgb;
+		float s = 1.0;
+		int ringsamples;
+		
+		for (int i = 1; i <= num_rings; i++)
+		{   
+			ringsamples = i * num_samples;
+			
+			for (int j = 0 ; j < ringsamples ; j++)   
+			{
+				float step = PI*2.0 / float(ringsamples);
+				float pw = (cos(float(j)*step)*float(i));
+				float ph = (sin(float(j)*step)*float(i));
+				float p = 1.0;
+				
+				if (bokeh_pentagon_enable == 1)
+				{ 
+					p = penta(vec2(pw,ph));
+				}
+				
+				col += color(jit_in.texcoord + vec2(pw*w,ph*h), blur) * mix(1.0, (float(i))/(float(num_rings)), bokeh_bias) * p;  
+				s += 1.0 * mix(1.0, (float(i))/(float(num_rings)), bokeh_bias) * p;   
+			}
+		}
+		col /= s; //divide by sample count
+	}
+
+	outColor = show_in_focus == 0 ? vec4( col, fDepth ) : show_focus(blur);
+	
+	//outColor = vec4(depth, depth, depth, 1.0);
+}
+]]>
+</program>
+</language>
+</jittershader>
