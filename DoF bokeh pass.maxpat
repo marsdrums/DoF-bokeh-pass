@@ -40,6 +40,19 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"attr" : "bokeh_fringe",
+					"id" : "obj-233",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1196.0, 743.0, 302.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-232",
 					"maxclass" : "toggle",
 					"numinlets" : 1,
@@ -321,7 +334,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 736.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1196.0, 785.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -1001,13 +1014,20 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-204", 0 ],
+					"source" : [ "obj-233", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
 			}
  ],
-		"originid" : "pat-126",
+		"originid" : "pat-134",
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}

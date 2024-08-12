@@ -18,6 +18,7 @@
         <bind name="bokeh_gain"             param="bokeh_gain"              default="10.0" />
         <bind name="bokeh_bias"             param="bokeh_bias"              default="0.5" />
         <bind name="bokeh_feather"          param="bokeh_feather"           default="1.4" />
+        <bind name="bokeh_fringe"           param="bokeh_fringe"            default="0.7" />
         <bind name="lens_fstop"             param="lens_fstop"              default="2.0" />
         <bind name="lens_focal_distance"    param="lens_focal_distance"     default="1.4" />
         <bind name="lens_focal_length"      param="lens_focal_length"       default="0.8" />
