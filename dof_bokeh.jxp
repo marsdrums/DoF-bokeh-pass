@@ -14,7 +14,7 @@
         <bind name="lens_max_blur"          param="lens_max_blur"           default="2.0" />
         <bind name="autofocus_enable"       param="autofocus_enable"        default="0" />
         <bind name="bokeh_pentagon_enable"  param="bokeh_pentagon_enable"   default="0" />
-        <bind name="bokeh_threshold"        param="bokeh_threshold"         default="0.7" />
+        <bind name="bokeh_threshold"        param="bokeh_threshold"         default="3.0" />
         <bind name="bokeh_gain"             param="bokeh_gain"              default="10.0" />
         <bind name="bokeh_bias"             param="bokeh_bias"              default="0.5" />
         <bind name="bokeh_feather"          param="bokeh_feather"           default="1.4" />

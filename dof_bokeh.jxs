@@ -21,7 +21,7 @@
 	<param name="lens_coc" type="float" default="0.03" />		//circle of confusion size in mm (35mm film = 0.03mm)
 	<param name="lens_max_blur" type="float" default="2." />			//clamp value of max blur (0.0 = no blur,1.0 default)
 
-	<param name="bokeh_threshold" type="float" default="0.7" />	//highlight bokeh_threshold;
+	<param name="bokeh_threshold" type="float" default="3.0" />	//highlight bokeh_threshold;
 	<param name="bokeh_gain" type="float" default="10.0" />		//highlight bokeh_gain;
 	<param name="bokeh_pentagon_enable" type="int" default="0" />		//enable pentagon shaped bokeh
 	<param name="bokeh_bias" type="float" default="0.5" />			//bokeh edge bokeh_bias
