@@ -40,6 +40,58 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"filename" : "ssao.jxp",
+					"id" : "obj-244",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "jit_gl_texture", "", "" ],
+					"patching_rect" : [ 1206.0, 950.0, 285.0, 22.0 ],
+					"text" : "jit.gl.pass node @file ssao @radius 0.46 @amnt 1.2",
+					"textfile" : 					{
+						"filename" : "ssao.jxp",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-243",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "jit_gl_texture", "" ],
+					"patching_rect" : [ 268.227499999998713, 212.0, 320.0, 22.0 ],
+					"text" : "jit.gl.environment node @file photo_studio_loft_hall_2k.exr"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"filename" : "ssao.jxp",
+					"id" : "obj-240",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "jit_gl_texture", "", "" ],
+					"patching_rect" : [ 1205.0, 901.0, 284.0, 22.0 ],
+					"text" : "jit.gl.pass node @file ssao @radius 0.11 @amnt 1.2",
+					"textfile" : 					{
+						"filename" : "ssao.jxp",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"attr" : "noise_amount",
 					"id" : "obj-234",
 					"maxclass" : "attrui",
@@ -224,25 +276,13 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-214",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 32.0, 990.0, 729.0, 22.0 ],
-					"text" : "jit.gl.light node @type directional @direction 1 -1 -1 @diffuse 1 3 2 @shadows 1 @shadowquality hi @shadowblur 0. @shadowrange 5."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"filename" : "gamma.jxp",
 					"id" : "obj-211",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_gl_texture", "", "" ],
-					"patching_rect" : [ 1028.0, 939.0, 181.0, 22.0 ],
+					"patching_rect" : [ 1028.0, 1060.0, 181.0, 22.0 ],
 					"text" : "jit.gl.pass node @file gamma.jxp",
 					"textfile" : 					{
 						"filename" : "gamma.jxp",
@@ -261,7 +301,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 1028.0, 987.0, 221.0, 22.0 ],
+					"patching_rect" : [ 1028.0, 1108.0, 221.0, 22.0 ],
 					"text" : "jit.gl.videoplane dof @transform_reset 2"
 				}
 
@@ -274,7 +314,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_gl_texture", "", "" ],
-					"patching_rect" : [ 939.0, 893.0, 197.0, 22.0 ],
+					"patching_rect" : [ 939.0, 985.0, 197.0, 22.0 ],
 					"text" : "jit.gl.pass node @file dof_bokeh.jxp",
 					"textfile" : 					{
 						"filename" : "dof_bokeh.jxp",
@@ -453,30 +493,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-168",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 855.0, 725.0, 22.0 ],
-					"text" : "jit.gl.light node @type directional @direction 0 -1 0 @diffuse 5 5 5 @shadows 1 @shadowquality hi @shadowblur 0. @shadowrange 5."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-167",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 891.0, 729.0, 22.0 ],
-					"text" : "jit.gl.light node @type directional @direction -1 -1 1 @diffuse 1 2 3 @shadows 1 @shadowquality hi @shadowblur 0. @shadowrange 5."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-165",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -533,18 +549,6 @@
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1063.0, 301.0, 150.0, 22.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-160",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 32.0, 934.0, 725.0, 22.0 ],
-					"text" : "jit.gl.light node @type directional @direction 1 -1 1 @diffuse 3 2 1 @shadows 1 @shadowquality hi @shadowblur 0. @shadowrange 5."
 				}
 
 			}
@@ -786,6 +790,19 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 862.0, 109.0, 215.0, 22.0 ],
 					"text_width" : 150.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"attr" : "enable",
+					"id" : "obj-235",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 760.0, 786.0, 150.0, 22.0 ]
 				}
 
 			}
@@ -1037,6 +1054,27 @@
 				"patchline" : 				{
 					"destination" : [ "obj-204", 0 ],
 					"source" : [ "obj-234", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-204", 0 ],
+					"source" : [ "obj-235", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-244", 0 ],
+					"source" : [ "obj-240", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-204", 0 ],
+					"source" : [ "obj-244", 1 ]
 				}
 
 			}
