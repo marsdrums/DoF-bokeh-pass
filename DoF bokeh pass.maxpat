@@ -41,13 +41,33 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"filename" : "ssao.jxp",
+					"id" : "obj-247",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "jit_gl_texture", "", "" ],
+					"patching_rect" : [ 1210.0, 985.0, 272.0, 22.0 ],
+					"text" : "jit.gl.pass node @file ssao @radius 0.8 @amnt 1.",
+					"textfile" : 					{
+						"filename" : "ssao.jxp",
+						"flags" : 0,
+						"embed" : 0,
+						"autowatch" : 1
+					}
+
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"filename" : "ssao.jxp",
 					"id" : "obj-244",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_gl_texture", "", "" ],
-					"patching_rect" : [ 1206.0, 950.0, 285.0, 22.0 ],
-					"text" : "jit.gl.pass node @file ssao @radius 0.46 @amnt 1.2",
+					"patching_rect" : [ 1204.5, 940.0, 285.0, 22.0 ],
+					"text" : "jit.gl.pass node @file ssao @radius 0.46 @amnt 1.5",
 					"textfile" : 					{
 						"filename" : "ssao.jxp",
 						"flags" : 0,
@@ -79,7 +99,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_gl_texture", "", "" ],
 					"patching_rect" : [ 1205.0, 901.0, 284.0, 22.0 ],
-					"text" : "jit.gl.pass node @file ssao @radius 0.11 @amnt 1.2",
+					"text" : "jit.gl.pass node @file ssao @radius 0.11 @amnt 1.5",
 					"textfile" : 					{
 						"filename" : "ssao.jxp",
 						"flags" : 0,
@@ -697,8 +717,8 @@
 					"numinlets" : 8,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 240.0, 304.0, 390.0, 22.0 ],
-					"text" : "jit.gl.pbr @tex_gen triplanar @shadow_eps 0.01 @gamma_correction 0"
+					"patching_rect" : [ 240.0, 304.0, 488.0, 22.0 ],
+					"text" : "jit.gl.pbr @tex_gen triplanar @shadow_eps 0.01 @gamma_correction 0 @roughness 0.05"
 				}
 
 			}
@@ -790,19 +810,6 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 862.0, 109.0, 215.0, 22.0 ],
 					"text_width" : 150.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"attr" : "enable",
-					"id" : "obj-235",
-					"maxclass" : "attrui",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 760.0, 786.0, 150.0, 22.0 ]
 				}
 
 			}
@@ -1059,13 +1066,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-204", 0 ],
-					"source" : [ "obj-235", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-244", 0 ],
 					"source" : [ "obj-240", 1 ]
 				}
@@ -1073,8 +1073,15 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-204", 0 ],
+					"destination" : [ "obj-247", 0 ],
 					"source" : [ "obj-244", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-204", 0 ],
+					"source" : [ "obj-247", 1 ]
 				}
 
 			}
