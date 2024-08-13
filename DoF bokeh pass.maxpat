@@ -79,11 +79,12 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-230",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1079.0, 110.0, 301.0, 20.0 ],
-					"text" : "enable debug view (red = focal plane, bright = in focus)"
+					"patching_rect" : [ 1079.0, 110.0, 303.0, 33.0 ],
+					"text" : "enable debug view (red = focal plane, bright = in focus, dot = autofocus_coordinates)"
 				}
 
 			}
@@ -241,7 +242,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_gl_texture", "", "" ],
-					"patching_rect" : [ 939.0, 861.0, 181.0, 22.0 ],
+					"patching_rect" : [ 1028.0, 939.0, 181.0, 22.0 ],
 					"text" : "jit.gl.pass node @file gamma.jxp",
 					"textfile" : 					{
 						"filename" : "gamma.jxp",
@@ -260,7 +261,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 939.0, 909.0, 221.0, 22.0 ],
+					"patching_rect" : [ 1028.0, 987.0, 221.0, 22.0 ],
 					"text" : "jit.gl.videoplane dof @transform_reset 2"
 				}
 
@@ -273,7 +274,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_gl_texture", "", "" ],
-					"patching_rect" : [ 939.0, 809.0, 197.0, 22.0 ],
+					"patching_rect" : [ 939.0, 893.0, 197.0, 22.0 ],
 					"text" : "jit.gl.pass node @file dof_bokeh.jxp",
 					"textfile" : 					{
 						"filename" : "dof_bokeh.jxp",
@@ -1047,7 +1048,7 @@
 
 			}
  ],
-		"originid" : "pat-236",
+		"originid" : "pat-242",
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}

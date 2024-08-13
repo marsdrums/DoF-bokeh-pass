@@ -161,15 +161,13 @@ vec2 rand() //generating noise/pattern texture for dithering
 
 vec3 color(vec2 coords,float blur) //processing the sample
 {
-	vec3 col = vec3(0.0);
+	vec2 amount = vec2(bokeh_fringe*blur) / texDim;
+	vec3 col;
+	col.r = texture(renderTex, texDim * (coords + vec2(0.0,1.0)*amount) 	).r;
+	col.g = texture(renderTex, texDim * (coords + vec2(-0.866,-0.5)*amount) ).g;
+	col.b = texture(renderTex, texDim * (coords + vec2(0.866,-0.5)*amount) 	).b;
 	
-	vec2 texel = vec2(1.0) / texDim;
-	col.r = texture(renderTex, texDim * (coords + vec2(0.0,1.0)*texel*bokeh_fringe*blur) 		).r;
-	col.g = texture(renderTex, texDim * (coords + vec2(-0.866,-0.5)*texel*bokeh_fringe*blur) 	).g;
-	col.b = texture(renderTex, texDim * (coords + vec2(0.866,-0.5)*texel*bokeh_fringe*blur) 	).b;
-	
-	vec3 lumcoeff = vec3(0.299,0.587,0.114);
-	float lum = dot(col.rgb, lumcoeff);
+	float lum = dot(col.rgb, vec3(0.299,0.587,0.114)); //luma
 	float thresh = max((lum-bokeh_threshold)*bokeh_gain, 0.0);
 	return col + mix(vec3(0.0),col,thresh*blur);
 }
