@@ -40,6 +40,19 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"attr" : "noise_amount",
+					"id" : "obj-234",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1063.0, 362.0, 167.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"attr" : "bokeh_fringe",
 					"id" : "obj-233",
 					"maxclass" : "attrui",
@@ -47,7 +60,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 743.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1266.0, 776.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -59,7 +72,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 566.0, 24.0, 24.0 ]
+					"patching_rect" : [ 1266.0, 599.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -80,7 +93,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1196.0, 540.0, 105.0, 20.0 ],
+					"patching_rect" : [ 1266.0, 573.0, 105.0, 20.0 ],
 					"text" : "bokeh parameters"
 				}
 
@@ -91,7 +104,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1448.0, 504.0, 84.0, 20.0 ],
+					"patching_rect" : [ 1492.0, 527.0, 84.0, 20.0 ],
 					"text" : "maximum blur"
 				}
 
@@ -102,7 +115,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1448.0, 473.0, 344.0, 20.0 ],
+					"patching_rect" : [ 1492.0, 496.0, 344.0, 20.0 ],
 					"text" : "camera's circle of confusion, size in mm (35mm film = 0.03mm)"
 				}
 
@@ -113,7 +126,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1448.0, 441.0, 86.0, 20.0 ],
+					"patching_rect" : [ 1492.0, 464.0, 86.0, 20.0 ],
 					"text" : "camera's fstop"
 				}
 
@@ -124,7 +137,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1448.0, 407.0, 158.0, 20.0 ],
+					"patching_rect" : [ 1492.0, 430.0, 158.0, 20.0 ],
 					"text" : "camera's focal length in mm"
 				}
 
@@ -135,7 +148,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1448.0, 375.0, 82.0, 20.0 ],
+					"patching_rect" : [ 1492.0, 398.0, 82.0, 20.0 ],
 					"text" : "focal distance"
 				}
 
@@ -146,8 +159,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1067.0, 277.0, 111.0, 20.0 ],
-					"text" : "number of samples"
+					"patching_rect" : [ 1067.0, 277.0, 57.0, 20.0 ],
+					"text" : "sampling"
 				}
 
 			}
@@ -334,7 +347,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 785.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1266.0, 818.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -347,7 +360,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 600.0, 302.0, 22.0 ],
+					"patching_rect" : [ 1266.0, 633.0, 302.0, 22.0 ],
 					"text_width" : 181.0
 				}
 
@@ -361,7 +374,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 703.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1266.0, 736.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -543,7 +556,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 632.0, 302.0, 22.0 ],
+					"patching_rect" : [ 1266.0, 665.0, 302.0, 22.0 ],
 					"text_width" : 179.0
 				}
 
@@ -570,7 +583,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1136.0, 406.0, 302.0, 22.0 ],
+					"patching_rect" : [ 1180.0, 429.0, 302.0, 22.0 ],
 					"text_width" : 140.0
 				}
 
@@ -584,7 +597,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1136.0, 503.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1180.0, 526.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -717,7 +730,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1136.0, 472.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1180.0, 495.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -730,7 +743,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1136.0, 374.0, 302.0, 22.0 ],
+					"patching_rect" : [ 1180.0, 397.0, 302.0, 22.0 ],
 					"text_width" : 147.0
 				}
 
@@ -744,7 +757,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1136.0, 440.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1180.0, 463.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -757,7 +770,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1196.0, 668.0, 302.0, 22.0 ]
+					"patching_rect" : [ 1266.0, 701.0, 302.0, 22.0 ]
 				}
 
 			}
@@ -1021,13 +1034,20 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-204", 0 ],
+					"source" : [ "obj-234", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
 			}
  ],
-		"originid" : "pat-134",
+		"originid" : "pat-236",
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}

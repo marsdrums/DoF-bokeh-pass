@@ -23,6 +23,7 @@
         <bind name="lens_focal_distance"    param="lens_focal_distance"     default="1.4" />
         <bind name="lens_focal_length"      param="lens_focal_length"       default="0.8" />
         <bind name="show_in_focus"          param="show_in_focus"           default="0" />
+        <bind name="noise_amount"           param="noise_amount"            default="0.0001" />
 
         <subpass name="blur" file="dof_bokeh.jxs" inputs="3">
             <input source="COLOR" />
